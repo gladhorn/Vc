@@ -518,14 +518,14 @@ template <typename T>
 Vc_INTRINSIC std::pair<Vector<T, VectorAbi::Avx>, int>
 Vector<T, VectorAbi::Avx>::minIndex() const
 {
-    AVX2::Vector<T> x = min();
+    AVX2::Vector<T> x = (min)();
     return std::make_pair(x, (*this == x).firstOne());
 }
 template <typename T>
 Vc_INTRINSIC std::pair<Vector<T, VectorAbi::Avx>, int>
 Vector<T, VectorAbi::Avx>::maxIndex() const
 {
-    AVX2::Vector<T> x = max();
+    AVX2::Vector<T> x = (max)();
     return std::make_pair(x, (*this == x).firstOne());
 }
 template <> Vc_INTRINSIC std::pair<AVX2::float_v, int> AVX2::float_v::minIndex() const
@@ -618,17 +618,17 @@ template<typename T> template<typename BinaryOperation> Vc_ALWAYS_INLINE AVX2::V
 }
 */
 
-template<typename T> Vc_ALWAYS_INLINE typename Vector<T, VectorAbi::Avx>::EntryType Vector<T, VectorAbi::Avx>::min(MaskArgument m) const
+template<typename T> Vc_ALWAYS_INLINE typename Vector<T, VectorAbi::Avx>::EntryType (Vector<T, VectorAbi::Avx>::min)(MaskArgument m) const
 {
-    AVX2::Vector<T> tmp = std::numeric_limits<AVX2::Vector<T> >::max();
+    AVX2::Vector<T> tmp = (std::numeric_limits<AVX2::Vector<T>>::max)();
     tmp(m) = *this;
-    return tmp.min();
+    return (tmp.min)();
 }
-template<typename T> Vc_ALWAYS_INLINE typename Vector<T, VectorAbi::Avx>::EntryType Vector<T, VectorAbi::Avx>::max(MaskArgument m) const
+template<typename T> Vc_ALWAYS_INLINE typename Vector<T, VectorAbi::Avx>::EntryType (Vector<T, VectorAbi::Avx>::max)(MaskArgument m) const
 {
-    AVX2::Vector<T> tmp = std::numeric_limits<AVX2::Vector<T> >::min();
+    AVX2::Vector<T> tmp = (std::numeric_limits<AVX2::Vector<T>>::min)();
     tmp(m) = *this;
-    return tmp.max();
+    return (tmp.max)();
 }
 template<typename T> Vc_ALWAYS_INLINE typename Vector<T, VectorAbi::Avx>::EntryType Vector<T, VectorAbi::Avx>::product(MaskArgument m) const
 {

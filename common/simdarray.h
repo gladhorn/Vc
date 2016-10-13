@@ -990,7 +990,7 @@ private:                                                                        
                                storage_type0::Size == storage_type1::Size,           \
                            value_type> name_##_impl() const                              \
     {                                                                                    \
-        return (binary_fun_(data0, data1).name_)();                                        \
+        return (binary_fun_(data0, data1).name_)();                                      \
     }                                                                                    \
                                                                                          \
     template <typename ForSfinae = void>                                                 \
@@ -998,27 +998,27 @@ private:                                                                        
                                storage_type0::Size != storage_type1::Size,           \
                            value_type> name_##_impl() const                              \
     {                                                                                    \
-        return scalar_fun_((data0.name_)(), (data1.name_)());                                \
+        return scalar_fun_((data0.name_)(), (data1.name_)());                            \
     }                                                                                    \
                                                                                          \
 public:                                                                                  \
     /**\copybrief Vector::##name_ */                                                     \
-    Vc_INTRINSIC value_type (name_)() const { return name_##_impl(); }                     \
+    Vc_INTRINSIC value_type (name_)() const { return name_##_impl(); }                   \
     /**\copybrief Vector::##name_ */                                                     \
-    Vc_INTRINSIC value_type (name_)(const mask_type &mask) const                           \
+    Vc_INTRINSIC value_type (name_)(const mask_type &mask) const                         \
     {                                                                                    \
         if (Vc_IS_UNLIKELY(Split::lo(mask).isEmpty())) {                                 \
-            return (data1.name_)(Split::hi(mask));                                         \
+            return (data1.name_)(Split::hi(mask));                                       \
         } else if (Vc_IS_UNLIKELY(Split::hi(mask).isEmpty())) {                          \
-            return (data0.name_)(Split::lo(mask));                                         \
+            return (data0.name_)(Split::lo(mask));                                       \
         } else {                                                                         \
-            return scalar_fun_((data0.name_)(Split::lo(mask)),                             \
-                               (data1.name_)(Split::hi(mask)));                            \
+            return scalar_fun_((data0.name_)(Split::lo(mask)),                           \
+                               (data1.name_)(Split::hi(mask)));                          \
         }                                                                                \
     }                                                                                    \
     Vc_NOTHING_EXPECTING_SEMICOLON
-    Vc_REDUCTION_FUNCTION_(min, Vc::min, std::min);
-    Vc_REDUCTION_FUNCTION_(max, Vc::max, std::max);
+    Vc_REDUCTION_FUNCTION_(min, (Vc::min), (std::min));
+    Vc_REDUCTION_FUNCTION_(max, (Vc::max), (std::max));
     Vc_REDUCTION_FUNCTION_(product, internal::product_helper_, internal::product_helper_);
     Vc_REDUCTION_FUNCTION_(sum, internal::sum_helper_, internal::sum_helper_);
 #undef Vc_REDUCTION_FUNCTION_
@@ -1646,7 +1646,7 @@ Vc_ALL_COMPARES(Vc_BINARY_OPERATORS_);
 #define Vc_FORWARD_BINARY_OPERATOR(name_)                                                \
     /*!\brief Applies the std::name_ function component-wise and concurrently. */        \
     template <typename T, std::size_t N, typename V, std::size_t M>                      \
-    inline SimdArray<T, N, V, M> (name_)(const SimdArray<T, N, V, M> &x,                   \
+    inline SimdArray<T, N, V, M> (name_)(const SimdArray<T, N, V, M> &x,                 \
                                        const SimdArray<T, N, V, M> &y)                   \
     {                                                                                    \
         return SimdArray<T, N, V, M>::fromOperation(                                     \
@@ -2219,7 +2219,7 @@ Vc_SIMDARRAY_CASTS(SimdMaskArray);
         using R = typename Return::EntryType;                                            \
         Return r = Return::Zero();                                                       \
         for (std::size_t i = offset * Return::Size;                                      \
-             i < (std::min)(N, (offset + 1) * Return::Size); ++i) {                        \
+             i < (std::min)(N, (offset + 1) * Return::Size); ++i) {                      \
             r[i - offset * Return::Size] = static_cast<R>(x[i]);                         \
         }                                                                                \
         return r;                                                                        \

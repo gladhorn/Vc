@@ -30,6 +30,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "typelist.h"
 
+#ifdef WIN32
+// just to break min/max
+#include <windows.h>
+#endif
+
 #ifdef Vc_ASSERT
 #error "include unittest.h before any Vc header"
 #endif

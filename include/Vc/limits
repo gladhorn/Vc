@@ -40,8 +40,8 @@ template<typename T> struct numeric_limits<Vc::Vector<T> > : public numeric_limi
 private:
     typedef numeric_limits<typename Vc::Vector<T>::EntryType> _Base;
 public:
-    static Vc_INTRINSIC Vc_CONST Vc::Vector<T> max()           { return Vc::Vector<T>(_Base::max()); }
-    static Vc_INTRINSIC Vc_CONST Vc::Vector<T> min()           { return Vc::Vector<T>(_Base::min()); }
+    static Vc_INTRINSIC Vc_CONST Vc::Vector<T> (max)()         { return Vc::Vector<T>((_Base::max)()); }
+    static Vc_INTRINSIC Vc_CONST Vc::Vector<T> (min)()         { return Vc::Vector<T>((_Base::min)()); }
     static Vc_INTRINSIC Vc_CONST Vc::Vector<T> lowest()        { return Vc::Vector<T>(_Base::lowest()); }
     static Vc_INTRINSIC Vc_CONST Vc::Vector<T> epsilon()       { return Vc::Vector<T>(_Base::epsilon()); }
     static Vc_INTRINSIC Vc_CONST Vc::Vector<T> round_error()   { return Vc::Vector<T>(_Base::round_error()); }

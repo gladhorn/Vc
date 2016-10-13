@@ -530,7 +530,7 @@ public:
      * Example:
      * \code
      * void foo(const float_v &v) {
-     *   float min = (v.min)(); // smallest value in v
+     *   float min = v.min(); // smallest value in v
      *   float sum = v.sum(); // sum of all values in v
      * }
      * \endcode

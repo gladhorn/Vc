@@ -678,7 +678,7 @@ Vc_INTRINSIC  schar mul(__m128i a,  schar) {
     // convert to two short vectors, multiply them and then do horizontal reduction
     const __m128i s0 = _mm_srai_epi16(a, 1);
     const __m128i s1 = Detail::and_(a, _mm_set1_epi32(0x0f0f0f0f));
-    return (schar)mul(mul(s0, s1, short()), short());
+    return mul(mul(s0, s1, short()), short());
 }
 Vc_INTRINSIC  uchar mul(__m128i a,  uchar) { return mul(a, schar()); }
 
